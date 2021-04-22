@@ -114,6 +114,20 @@ func handleCommand(cmd string, args []string) {
 		}
 		fmt.Fprintln(out, "join #"+ch.Name)
 		client.ch = discord.ChannelID(n)
+	case "m":
+		n, err := strconv.ParseUint(args[0], 10, 64)
+		if err != nil {
+			log.Println(err)
+			return
+		}
+		msgs, err := client.s.Client.Messages(client.ch, uint(n))
+		if err != nil {
+			log.Println(err)
+			return
+		}
+		for i := len(msgs) - 1; i >= 0; i-- {
+			printMsg(msgs[i])
+		}
 	}
 	return
 }
