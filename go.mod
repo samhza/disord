@@ -1,4 +1,4 @@
-module git.sr.ht/~samhza/disord
+module go.samhza.com/disord
 
 go 1.16
 
