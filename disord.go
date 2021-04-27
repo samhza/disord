@@ -143,8 +143,12 @@ func handleEvent(ev interface{}) {
 }
 
 func printMsg(m discord.Message) {
-	lines := strings.Split(m.Content, "\n")
-	for _, line := range lines {
-		fmt.Fprintf(out, "%s → %s\n", m.Author.Username, line)
+	for _, at := range m.Attachments {
+		fmt.Fprintf(out, "%s → %s\n", m.Author.Username, at.URL)
+	}
+	if m.Content != "" {
+		for _, line := range strings.Split(m.Content, "\n") {
+			fmt.Fprintf(out, "%s → %s\n", m.Author.Username, line)
+		}
 	}
 }
